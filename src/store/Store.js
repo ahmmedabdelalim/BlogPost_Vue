@@ -1,6 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+//import Echo from 'laravel-echo';
+//import pusher from 'pusher-js';
+//import Pusher from 'pusher';
+//window.Pusher = require('pusher-js');
 Vue.use(Vuex);
 import VuexPersistence from 'vuex-persist'
 
@@ -30,11 +34,12 @@ export default new Vuex.Store({
     },
     SET_user(state, payload) {
       state.user = payload;
+     // Echo.connector.pusher.config.auth.headers.Authorization = 'Bearer  ${userToken}'
     },
     setUserToken(state, userToken) {
       state.userToken=userToken;
       localStorage.setItem('userToken',JSON.stringify(userToken));
-      axios.defaults.headers.common.Authorization = 'Bearer ${userToken}'
+      axios.defaults.headers.common.Authorization = 'Bearer ${state.userToken}'
       
     },
     removeUserToken(state)

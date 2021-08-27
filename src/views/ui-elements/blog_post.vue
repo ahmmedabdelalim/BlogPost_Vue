@@ -108,6 +108,8 @@
 
 <script>
 import axios from "axios"
+import Echo from 'laravel-echo'
+//import Pusher from 'pusher-js'
 
 export default  ({
     name:"blog_post",
@@ -146,8 +148,9 @@ export default  ({
             console.log(response)
             this.post = response.data.Post
             this.post_id = this.post.id
-            this.user_id = this.$store.getters.get_user.id;
+            this.user_id = this.$store.getters.get_user.id
             this.Comments = response.data.Post.comments
+            this.initializeListener()
         })
         .catch(error=>{
             this.error = "there is error in  save process";
@@ -174,6 +177,17 @@ export default  ({
         .catch(err=>{
            console.log(err)
         })
+      },
+      initializeListener()
+      {
+        window.Pusher = require('pusher-js');
+      
+        Echo.private(`NewComment.${this.post_id}`)
+    .listen('NewComment', (e) => {
+        console.log(e);
+
+        console.log('listen to new comment');
+    });
       }
     },  
      

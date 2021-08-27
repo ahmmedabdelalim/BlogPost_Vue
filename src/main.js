@@ -8,6 +8,7 @@ import "./assets/scss/style.scss";
 import App from "./App.vue";
 import JwPagination from 'jw-vue-pagination';
 import $ from 'jquery';
+
 Vue.component('jw-pagination', JwPagination);
 
 Vue.config.productionTip = false;
